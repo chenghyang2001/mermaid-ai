@@ -281,6 +281,14 @@ let sIdx = 0, iIdx = 0;
 let scale = 1, tx = 0, ty = 0;
 let dragging = false, dragX = 0, dragY = 0, txStart = 0, tyStart = 0;
 
+// Autoplay vars declared here (before loadSession) to avoid TDZ crash
+const playBtn  = document.getElementById('play-btn');
+const ddToggle = document.getElementById('dd-toggle');
+const ddMenu   = document.getElementById('auto-dropdown');
+const loopItem = document.getElementById('loop-item');
+const progBar  = document.getElementById('progress-bar');
+let autoSpeed = 5000, autoLoop = true, autoTimer = null, progTimer = null, progStart = 0;
+
 // ── Elements ───────────────────────────────────────────────
 const img          = document.getElementById('main-img');
 const viewer       = document.getElementById('viewer');
@@ -393,13 +401,6 @@ viewer.addEventListener('dblclick', fitImage);
 window.addEventListener('resize', fitImage);
 
 // ── Autoplay ───────────────────────────────────────────────
-const playBtn  = document.getElementById('play-btn');
-const ddToggle = document.getElementById('dd-toggle');
-const ddMenu   = document.getElementById('auto-dropdown');
-const loopItem = document.getElementById('loop-item');
-const progBar  = document.getElementById('progress-bar');
-
-let autoSpeed = 5000, autoLoop = true, autoTimer = null, progTimer = null, progStart = 0;
 
 function startAutoplay() {
   clearInterval(autoTimer); clearInterval(progTimer);
